@@ -102,22 +102,22 @@ end
 
 # copy application controller
 run "cd app/controllers && rm application_controller.rb"
-run "cd app/controllers && wget https://github.com/davidchua/authlogic3-rails-template/raw/master/controllers/application_controller.rb --no-check-certificate"
+run "cd app/controllers && wget https://github.com/davidchua/authlogic-rails3-template/raw/master/controllers/application_controller.rb --no-check-certificate"
 
 # generate user_sessions controllers and views
 
-run "cd app/controllers && wget https://github.com/davidchua/authlogic3-rails-template/raw/master/controllers/user_sessions_controller.rb --no-check-certificate"
+run "cd app/controllers && wget https://github.com/davidchua/authlogic-rails3-template/raw/master/controllers/user_sessions_controller.rb --no-check-certificate"
 run 'mkdir app/views/users'
-run "cd app/views/users && wget https://github.com/davidchua/authlogic3-rails-template/raw/master/views/users/edit.html.erb --no-check-certificate"
-run "cd app/views/users && wget https://github.com/davidchua/authlogic3-rails-template/raw/master/views/users/_form.erb --no-check-certificate"
-run "cd app/views/users && wget https://github.com/davidchua/authlogic3-rails-template/raw/master/views/users/new.html.erb --no-check-certificate"
-run "cd app/views/users && wget https://github.com/davidchua/authlogic3-rails-template/raw/master/views/users/show.html.erb --no-check-certificate"
+run "cd app/views/users && wget https://github.com/davidchua/authlogic-rails3-template/raw/master/views/users/edit.html.erb --no-check-certificate"
+run "cd app/views/users && wget https://github.com/davidchua/authlogic-rails3-template/raw/master/views/users/_form.erb --no-check-certificate"
+run "cd app/views/users && wget https://github.com/davidchua/authlogic-rails3-template/raw/master/views/users/new.html.erb --no-check-certificate"
+run "cd app/views/users && wget https://github.com/davidchua/authlogic-rails3-template/raw/master/views/users/show.html.erb --no-check-certificate"
 
 # generate users controllers and views
 
-run "cd app/controllers && wget https://github.com/davidchua/authlogic3-rails-template/raw/master/controllers/users_controller.rb --no-check-certificate"
+run "cd app/controllers && wget https://github.com/davidchua/authlogic-rails3-template/raw/master/controllers/users_controller.rb --no-check-certificate"
 run 'mkdir app/views/user_sessions'
-run "cd app/views/user_sessions && wget https://github.com/davidchua/authlogic3-rails-template/raw/master/views/user_sessions/new.html.erb --no-check-certificate"
+run "cd app/views/user_sessions && wget https://github.com/davidchua/authlogic-rails3-template/raw/master/views/user_sessions/new.html.erb --no-check-certificate"
 
 # add routes
 
