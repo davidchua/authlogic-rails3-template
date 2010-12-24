@@ -7,6 +7,10 @@ https till its fixed.
 Refer to :
 https://rails.lighthouseapp.com/projects/8994-ruby-on-rails/tickets/5926
 
+## Notes
+- This template needs git to be installed. It automatically creates an initial git repository on your rails application.
+- This template does not run migration after completition
+
 ## Usage
 In order to use this, you need to clone this repository, and then do a 
 
