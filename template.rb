@@ -1,8 +1,4 @@
 # Application Generator Template
-# Modifies a Rails app to use Mongoid and Devise
-# Usage: rails new app_name -m https://github.com/fortuity/rails3-mongoid-devise/raw/master/template.rb
-
-# More info: https://github.com/fortuity/rails3-mongoid-devise/
 
 # If you are customizing this template, you can use any methods provided by Thor::Actions
 # https://rdoc.info/rdoc/wycats/thor/blob/f939a3e8a854616784cac1dcff04ef4f3ee5f7ff/Thor/Actions.html
@@ -32,27 +28,11 @@ puts "Creating a new Rails app to use Rails 3 - email as form of user login "
 #  login_method_flag = "email"
 #end
 
-git_flag = true
+#git_flag = true
 
-if yes?('Would you like to setup an empty git repository? (yes/no)')
-  git_flag = true
-else
-  git_flag = false
-end
-
-#----------------------------------------------------------------------------
-# Set up git
-#----------------------------------------------------------------------------
-if git_flag
-puts "setting up source control with 'git'..."
-# specific to Mac OS X
-append_file '.gitignore' do
-  '.DS_Store'
-end
-git :init
-git :add => '.'
-git :commit => "-m 'Initial commit of unmodified new Rails app with authlogic'"
-end
+#if no?('Would you like to setup an empty git repository? (yes/no)')
+#  git_flag = false
+#end
 #----------------------------------------------------------------------------
 # Remove the usual cruft
 #----------------------------------------------------------------------------
@@ -73,13 +53,15 @@ gsub_file 'public/robots.txt', /# Disallow/, 'Disallow'
 #----------------------------------------------------------------------------
 
 gem "authlogic"
+plugin "dynamic_form", :git => "git://github.com/rails/dynamic_form.git"
+
 
 # setup user_session model
 
 create_file "app/models/user_session.rb" do
 <<-RUBY
-  "class UserSession < Authlogic::Session::Base"
-  "end"
+  class UserSession < Authlogic::Session::Base
+  end
 RUBY
 end
 
@@ -112,6 +94,7 @@ end
 
 inject_into_file 'app/models/user.rb', :after => "class User < ActiveRecord::Base" do
   <<-RUBY
+
     acts_as_authentic do |c|
     end
   RUBY
@@ -136,5 +119,35 @@ run "cd app/controllers && wget https://github.com/davidchua/authlogic3-rails-te
 run 'mkdir app/views/user_sessions'
 run "cd app/views/user_sessions && wget https://github.com/davidchua/authlogic3-rails-template/raw/master/views/user_sessions/new.html.erb --no-check-certificate"
 
+# add routes
+
+
+inject_into_file 'config/routes.rb', :after => "Application.routes.draw do" do
+  <<-RUBY
+
+    resources :user_session
+    resources :users
+    resource :account, :controller => "users"
+  RUBY
+end
+
 # cleanups
-run 'mv config/database.yml config/database.yml.example'
+run 'cp config/database.yml config/database.yml.example'
+
+
+#----------------------------------------------------------------------------
+# Set up git
+#----------------------------------------------------------------------------
+
+#if git_flag
+puts "setting up source control with 'git'..."
+# specific to Mac OS X
+append_file '.gitignore' do
+  '.DS_Store'
+  'log/*'
+  'config/database.yml'
+end
+git :init
+git :add => '.'
+git :commit => "-m 'Initial commit of unmodified new Rails app with authlogic'"
+# end

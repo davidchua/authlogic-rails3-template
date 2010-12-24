@@ -1,9 +1,0 @@
-Due to a bug in Rails 3.0.3, you cannot create a template remotely via github's
-https till its fixed.
-
-Refer to :
-https://rails.lighthouseapp.com/projects/8994-ruby-on-rails/tickets/5926
-
-In order to use this, you need to clone this repository, and then do a 
-
-"rails new -m /path/to/localcopy/repo/template.rb"
