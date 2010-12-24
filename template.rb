@@ -2,15 +2,15 @@
 # Modifies a Rails app to use Mongoid and Devise
 # Usage: rails new app_name -m https://github.com/fortuity/rails3-mongoid-devise/raw/master/template.rb
 
-# More info: http://github.com/fortuity/rails3-mongoid-devise/
+# More info: https://github.com/fortuity/rails3-mongoid-devise/
 
 # If you are customizing this template, you can use any methods provided by Thor::Actions
-# http://rdoc.info/rdoc/wycats/thor/blob/f939a3e8a854616784cac1dcff04ef4f3ee5f7ff/Thor/Actions.html
+# https://rdoc.info/rdoc/wycats/thor/blob/f939a3e8a854616784cac1dcff04ef4f3ee5f7ff/Thor/Actions.html
 # and Rails::Generators::Actions
-# http://github.com/rails/rails/blob/master/railties/lib/rails/generators/actions.rb
+# https://github.com/rails/rails/blob/master/railties/lib/rails/generators/actions.rb
 
 puts "Modifying a new Rails app to use Mongoid and Devise..."
-puts "Any problems? See http://github.com/fortuity/rails3-mongoid-devise/issues"
+puts "Any problems? See https://github.com/fortuity/rails3-mongoid-devise/issues"
 
 #----------------------------------------------------------------------------
 # Configure
@@ -118,14 +118,14 @@ end
 
 # copy application controller
 
-run "cd app/controllers && wget http://github.com/davidchua/authlogic3-rails-template/controllers/application_controller.rb"
+run "cd app/controllers && wget https://github.com/davidchua/authlogic3-rails-template/raw/master/controllers/application_controller.rb"
 
 # generate user_sessions controllers and views
 
-run "cd app/controllers && wget http://github.com/davidchua/authlogic3-rails-template/controller/user_sessions_controller.rb"
-run "cd app/controllers && wget http://github.com/davidchua/authlogic3-rails-template/views/users/*"
+run "cd app/controllers && wget https://github.com/davidchua/authlogic3-rails-template/raw/master/controllers/user_sessions_controller.rb"
+run "cd app/controllers && wget https://github.com/davidchua/authlogic3-rails-template/raw/master/views/users/* --no-check-certificate"
 
 # generate users controllers and views
 
-run "cd app/controllers && wget http://github.com/davidchua/authlogic3-rails-template/controller/users_controller.rb"
-run "cd app/controllers && wget http://github.com/davidchua/authlogic3-rails-template/views/user_sessions/*"
+run "cd app/controllers && wget https://github.com/davidchua/authlogic3-rails-template/raw/master/controllers/users_controller.rb"
+run "cd app/controllers && wget https://github.com/davidchua/authlogic3-rails-template/raw/master/views/user_sessions/*"
