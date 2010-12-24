@@ -9,29 +9,30 @@
 # and Rails::Generators::Actions
 # https://github.com/rails/rails/blob/master/railties/lib/rails/generators/actions.rb
 
-puts "Modifying a new Rails app to use Mongoid and Devise..."
-puts "Any problems? See https://github.com/fortuity/rails3-mongoid-devise/issues"
+puts "Creating a new Rails app to use Rails 3 - email as form of user login "
 
 #----------------------------------------------------------------------------
 # Configure
 #----------------------------------------------------------------------------
 
-if yes?('Are you using Rails 3.x? (yes/no)')
-  rails3_flag = true
-else
-  rails3_flag = false
-end
+#if yes?('Are you using Rails 3.x? (yes/no)')
+#  rails3_flag = true
+#else
+#  rails3_flag = false
+#end
 
-login_method = ask('How do you prefer your users to login? (email/username/both) - defaults to email only')
-if login_method == "email"
-  login_method_flag = "email"
-elsif login_method == "username"
-  login_method_flag = "login"
-elsif login_method == "both"
-  login_method_flag = "both"
-else
-  login_method_flag = "email"
-end
+#login_method = ask('How do you prefer your users to login? (email/username/both) - defaults to email only')
+#if login_method == "email"
+#  login_method_flag = "email"
+#elsif login_method == "username"
+#  login_method_flag = "login"
+#elsif login_method == "both"
+#  login_method_flag = "both"
+#else
+#  login_method_flag = "email"
+#end
+
+git_flag = true
 
 if yes?('Would you like to setup an empty git repository? (yes/no)')
   git_flag = true
@@ -56,7 +57,7 @@ end
 # Remove the usual cruft
 #----------------------------------------------------------------------------
 puts "removing unneeded files..."
-run 'mv config/database.yml config/database.yml.example'
+
 run 'rm public/index.html'
 run 'rm public/favicon.ico'
 run 'rm public/images/rails.png'
@@ -87,7 +88,7 @@ end
 generate :model, 'user'
 
 # add user model
-inject_into_file (Dir["db/migrate/*_create_users.rb"].first, :after => "do |t|") do
+inject_into_file Dir["db/migrate/*_create_users.rb"].first, :after => "do |t|" do
   <<-RUBY
       t.string    :email,               :null => false
       t.string    :crypted_password,    :null => false
@@ -117,15 +118,23 @@ inject_into_file 'app/models/user.rb', :after => "class User < ActiveRecord::Bas
 end
 
 # copy application controller
-
-run "cd app/controllers && wget https://github.com/davidchua/authlogic3-rails-template/raw/master/controllers/application_controller.rb"
+run "cd app/controllers && rm application_controller.rb"
+run "cd app/controllers && wget https://github.com/davidchua/authlogic3-rails-template/raw/master/controllers/application_controller.rb --no-check-certificate"
 
 # generate user_sessions controllers and views
 
-run "cd app/controllers && wget https://github.com/davidchua/authlogic3-rails-template/raw/master/controllers/user_sessions_controller.rb"
-run "cd app/controllers && wget https://github.com/davidchua/authlogic3-rails-template/raw/master/views/users/* --no-check-certificate"
+run "cd app/controllers && wget https://github.com/davidchua/authlogic3-rails-template/raw/master/controllers/user_sessions_controller.rb --no-check-certificate"
+run 'mkdir app/views/users'
+run "cd app/views/users && wget https://github.com/davidchua/authlogic3-rails-template/raw/master/views/users/edit.html.erb --no-check-certificate"
+run "cd app/views/users && wget https://github.com/davidchua/authlogic3-rails-template/raw/master/views/users/_form.erb --no-check-certificate"
+run "cd app/views/users && wget https://github.com/davidchua/authlogic3-rails-template/raw/master/views/users/new.html.erb --no-check-certificate"
+run "cd app/views/users && wget https://github.com/davidchua/authlogic3-rails-template/raw/master/views/users/show.html.erb --no-check-certificate"
 
 # generate users controllers and views
 
-run "cd app/controllers && wget https://github.com/davidchua/authlogic3-rails-template/raw/master/controllers/users_controller.rb"
-run "cd app/controllers && wget https://github.com/davidchua/authlogic3-rails-template/raw/master/views/user_sessions/*"
+run "cd app/controllers && wget https://github.com/davidchua/authlogic3-rails-template/raw/master/controllers/users_controller.rb --no-check-certificate"
+run 'mkdir app/views/user_sessions'
+run "cd app/views/user_sessions && wget https://github.com/davidchua/authlogic3-rails-template/raw/master/views/user_sessions/new.html.erb --no-check-certificate"
+
+# cleanups
+run 'mv config/database.yml config/database.yml.example'
